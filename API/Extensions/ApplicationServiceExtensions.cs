@@ -19,15 +19,13 @@ namespace API.Extensions
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             services.AddCors();
             services.AddScoped<ITokenService, TokenService>();
-            services.AddScoped<IUserRepository, UserRepository>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings")) ;
             services.AddScoped<IphotoService, PhotoService>();
             services.AddScoped<LogUserActivity>();
-            services.AddScoped<ILikesRepository, LikesRepository>();
-            services.AddScoped<ImessageRepository, MessageRepository>();
             services.AddSignalR();  
-            services.AddSingleton<PresenceTracker>();         
+            services.AddSingleton<PresenceTracker>();   
+            services.AddScoped<IUnitOfWork, UnitOfWork>();      
 
             return services;
         }
