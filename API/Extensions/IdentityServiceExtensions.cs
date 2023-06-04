@@ -27,7 +27,7 @@ namespace API.Extensions
                     options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
                     {
                         ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"])),
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("super secret unguessable key super secret unguessable keysuper secret unguessable key")),
                         ValidateIssuer = false,
                         ValidateAudience = false
 

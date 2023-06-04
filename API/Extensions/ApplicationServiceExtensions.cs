@@ -5,6 +5,7 @@ using API.Services;
 using API.SignalR;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace API.Extensions
 {
     public static class ApplicationServiceExtensions
@@ -13,7 +14,7 @@ namespace API.Extensions
         {
             services.AddDbContext<DataContext>(opt =>
             {
-                opt.UseSqlite(config.GetConnectionString("Defaultconnection"));
+                opt.UseSqlServer(config.GetConnectionString("Defaultconnection"));
             });
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

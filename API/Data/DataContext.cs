@@ -3,6 +3,7 @@ using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace API.Data
 {
@@ -47,7 +48,7 @@ namespace API.Data
                 .HasOne(s => s.TargetUser)
                 .WithMany( l => l.LikedByUsers)
                 .HasForeignKey(s => s.TargeUserId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.Entity<Message>()
             .HasOne( u=> u.Recipient)
@@ -58,6 +59,28 @@ namespace API.Data
             .HasOne( u=> u.Sender)
             .WithMany( m=> m.MessagesSent)
             .OnDelete(DeleteBehavior.Restrict);
+            
         }
+
+        protected override void ConfigureConventions(ModelConfigurationBuilder builder)
+        {
+            builder.Properties<DateOnly>()
+                   .HaveConversion<DateOnlyConverter>()
+                   .HaveColumnType("date");
+        }
+
     }
+
+
+    public class DateOnlyConverter : ValueConverter<DateOnly, DateTime>
+      {
+          /// <summary>
+          /// Creates a new instance of this converter.
+          /// </summary>
+          public DateOnlyConverter() : base(
+                  d => d.ToDateTime(TimeOnly.MinValue),
+                  d => DateOnly.FromDateTime(d))
+          { }
+      }
+      
 }
