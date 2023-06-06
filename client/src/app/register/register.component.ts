@@ -60,9 +60,8 @@ register(){
 cancel() {
   this.cancelRegister.emit(false);
 }
-private getDateOnly(dob: string | undefined) {
+private getDateOnly(dob: string ) {
 
-  //if(!dob) return;
   let theDob = new Date(dob);
   return new Date(theDob.setMinutes(theDob.getMinutes()- theDob.getTimezoneOffset())).toISOString().slice(0,10);
 }

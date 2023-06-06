@@ -11,7 +11,7 @@ import { RolesModalComponent } from 'src/app/modals/roles-modal/roles-modal.comp
 })
 export class UserManagementComponent  implements OnInit{
   users: User[] = [];
-  bsModalRef: BsModalRef<RolesModalComponent> = new BsModalRef<RolesModalComponent>();
+  bsModalRef:   BsModalRef<RolesModalComponent>;
   availableRoles= [ 'Admin', 'Moderator','Member']
 
   constructor(private adminService: AdminService, private modalService: BsModalService){}
@@ -26,7 +26,6 @@ export class UserManagementComponent  implements OnInit{
   }
 
   openRolesModal(user: User){
-    //console.log(user);
     const config = {
       class: 'modal-dialog-centered',
       initialState: {
@@ -37,7 +36,7 @@ export class UserManagementComponent  implements OnInit{
     }
     
     this.bsModalRef = this.modalService.show(RolesModalComponent, config);
-    this.bsModalRef.onHidden.subscribe({
+    this.bsModalRef.onHidden?.subscribe({
       next: () => {
           const selectedRoles = this.bsModalRef.content.selectedRoles;
           if(!this.arrayEqual(selectedRoles, user.roles))

@@ -17,8 +17,9 @@ import { PresenceService } from 'src/app/_services/presence.service';
   styleUrls: ['./member-detail.component.css']
 })
 export class MemberDetailComponent  implements OnInit, OnDestroy{
-  @ViewChild('memberTabs', {static: true}) memberTabs: TabsetComponent;
-  member: Member | undefined;
+  @ViewChild('memberTabs', {static: true}) 
+  memberTabs = {} as TabsetComponent; 
+  member = {} as Member; 
   galleryOptions: NgxGalleryOptions[] = [];
   galleryImages: NgxGalleryImage[] = [];
   activeTab: TabDirective;
@@ -77,7 +78,7 @@ export class MemberDetailComponent  implements OnInit, OnDestroy{
 
   selectTab(heading: string){
     if(this.memberTabs){
-      this.memberTabs.tabs.find( x => x.heading === heading).active = true;
+      this.memberTabs.tabs.find( x => x.heading === heading)!.active = true;
     }
   }
   loadMessages(){
